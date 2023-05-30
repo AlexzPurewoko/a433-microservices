@@ -2,8 +2,12 @@ version: '3.8'
 
 services:
   item-app:
-    image: alexzpurewoko/item-app-project-alexzforger:v1
-    restart: on-failure
+    image: ghcr.io/alexzpurewoko/item-app-project-alexzforger:v1
+    deploy: 
+      restart_policy:
+        condition: any
+        delay: 3s
+        window: 30s
     depends_on:
       - item-db
     ports:
