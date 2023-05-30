@@ -1,22 +1,35 @@
+# Using the docker compose v3.8 specification
 version: '3.8'
 
+# Entry for configuring service that can be started up
 services:
+  # Adding the item-app service, providing the main application 
   item-app:
+    # This service will use an image from github container registry. If doesn't exist, it will pull first.
     image: ghcr.io/alexzpurewoko/item-app-project-alexzforger:v1
+    # This service is depends on `item-db`service, indicates that this service will be started after the `item-db` service is up.
     depends_on:
       - item-db
+    # This will set up to bind port 8080 inside container with port 80 on the host machine.
     ports:
       - "80:8080"
+    # An entry for service deployment related configuration
     deploy: 
+      # This will configure a restart policy with any condition, with delay at 3 seconds for restart attempts, and
+      # 30 seconds long for deciding if a restart is indicates as succeeded
       restart_policy:
         condition: any
         delay: 3s
         window: 30s
-    
+
+  # Adding the `item-db` service for storing the `item-app` data
   item-db:
+    # Using the published images
     image: mongo:3
+    # This will mount the MongoDB database inside container into a named volume `app-db`, so it can be shared accross the services
     volumes:
       - app-db:/data/db 
 
+# Create a volume of `app-db` that can be shared accross the services
 volumes:
   app-db:
