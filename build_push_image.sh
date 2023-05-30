@@ -4,8 +4,8 @@ docker build -t item-app-project-alexzforger -t item-app-project-alexzforger:v1 
 
 docker image ls
 
-docker tag item-app-project-alexzforger:v1 alexzpurewoko/item-app-project-alexzforger:v1
+docker tag item-app-project-alexzforger:v1 ghcr.io/alexzpurewoko/item-app-project-alexzforger:v1
 
-docker login
+docker login ghcr.io 
 
-docker push alexzpurewoko/item-app-project-alexzforger:v1
+docker push ghcr.io/alexzpurewoko/item-app-project-alexzforger:v1
